@@ -8,7 +8,7 @@ Before proceeding further, please spend a few minutes going through and reasonin
 1   public async Task Bar(string id)
 2   {
 3     Console.WriteLine($"Entering Bar {id}");
-4     await Task Run(() =>
+4     await Task.Run(() =>
 5     {
 6       Console.WriteLine($"Work in Bar {id}");
 7     });
@@ -135,7 +135,7 @@ Let's study how Coyote explores the concurrency of the above program step-by-ste
 1   public async Task Bar(string id)
 2   {
 3     Console.WriteLine($"Entering Bar {id}");
-4     await Task Run(() =>
+4     await Task.Run(() =>
 5     {
 6       Console.WriteLine($"Work in Bar {id}");
 7     });
