@@ -1,3 +1,7 @@
+---
+title:  "Understanding Coyote's Task-based Programming Model"
+---
+
 Coyote's task based programming model allows developers to express the concurrency of their programs using  the familiar and heavily used .NET TPL framework. Developers use Coyote's variant of the Task class, which acts as a very thin wrapper over .NET Tasks in production but allows Coyote to carefully and systematically explore the different concurrent schedules during testing. This allows developers to leverage Coyote's testing capabilities without changing how they design and structure their applications.
 
 We'll explore Coyote's task based programming model in this article. You should have an intuitive understanding of how it works after going through the examples and discussion below. It will not talk about how to test interesting safety and liveness properties through Coyote but will instead focus on the mechanics of how Coyote explores the concurrency of programs written using .NET TPL's framework. This will give you a solid foundation to build upon which will help you later learn how to leverage Coyote to test safety and liveness properties of your application.
@@ -26,9 +30,9 @@ Before proceeding further, please spend a few minutes going through and reasonin
 19  {
 20    var task1 = Foo("1");
 21    var task2 = Foo("2");
-22 
+22
 23   Console.WriteLine("Waiting");
-24   Task.WaitAll(task1, task2); 
+24   Task.WaitAll(task1, task2);
 25  }
 ```
 If you're done understanding the behavior of the above program, then continue reading.
@@ -118,7 +122,7 @@ The above tiny program can in fact lead to 366 distinct outputs!
 
 The number of possible inter-leavings in a tiny program was a humbling realization for me. Production programs are much longer and contain a much larger number of asynchronous operations which results in a huge state space. Systematic testing tools like Coyote can greatly increase your confidence in the correctness of your code as they explore the state space for you and verify the safety and liveness properties at each step.
 
-Now that you have an understanding of what the above program does and the number of possible outputs, let's switch to talking about how Coyote explores the concurrency of the above program. 
+Now that you have an understanding of what the above program does and the number of possible outputs, let's switch to talking about how Coyote explores the concurrency of the above program.
 
 Coyote makes a simplifying assumption which reduces the number of possible schedules it has explore thus helping it to scale to test large production systems with many thousands of lines of code. Coyote doesn't explore inter-leavings at each possible instruction; it instead runs a control flow continuously till it hits a _scheduling point_ and only explores the inter-leavings at the boundaries of these scheduling points. This results in a reduced coverage of the number of possible inter-leavings but allows it to scale much better and still catch a large number of interesting bugs. As an example, a number of subtle bugs in production programs happen when one task changes the state of an external resource, say, a database which interleaves with another task reading the state of the same row in the database. Such reads and writes are often done through asynchronous read and write SDK methods and exploring the inter-leavings at these scheduling points catches a lot of interesting bugs.
 
@@ -128,7 +132,7 @@ To make things concrete, Coyote explores a graph which has the following shape:
 
 As you can see, Coyote always executes a bunch of instructions together, with each such grouping called a _step_. The number of active control flows in the system remains the same but the length of each control flow is reduced due to grouping of instructions which always execute together. This reduces the number of distinct possible outputs to 8. This trade-off is often worth it as it allows the testing to scale to larger programs while still catching interesting bugs which surface due to inter-leavings at the boundaries of the scheduling points. It does miss bugs which are caused by inter-leavings of instructions within boundaries of the scheduling points. Coyote provides tools through which developers can introduce artificial scheduling points to break apart the groups and increase the number of explored inter-leavings.
 
-Let's study how Coyote explores the concurrency of the above program step-by-step. We'll paste the program again for easy reference. 
+Let's study how Coyote explores the concurrency of the above program step-by-step. We'll paste the program again for easy reference.
 
 
 ```csharp
@@ -153,9 +157,9 @@ Let's study how Coyote explores the concurrency of the above program step-by-ste
 19  {
 20    var task1 = Foo("1");
 21    var task2 = Foo("2");
-22 
+22
 23   Console.WriteLine("Waiting");
-24   Task.WaitAll(task1, task2); 
+24   Task.WaitAll(task1, task2);
 25  }
 ```
 
