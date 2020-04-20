@@ -3,3 +3,5 @@ description: Learning and exploring techniques to write reliable software throug
 
 remote_theme: rosario/kasper
 
+
+theme: jekyll-theme-minimal
