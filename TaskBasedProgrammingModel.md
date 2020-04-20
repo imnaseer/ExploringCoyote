@@ -2,6 +2,8 @@
 title:  "Understanding Coyote's Task-based Programming Model"
 ---
 
+# Understanding Coyote's Task-based Programming Model
+
 Coyote's task based programming model allows developers to express the concurrency of their programs using  the familiar and heavily used .NET TPL framework. Developers use Coyote's variant of the Task class, which acts as a very thin wrapper over .NET Tasks in production but allows Coyote to carefully and systematically explore the different concurrent schedules during testing. This allows developers to leverage Coyote's testing capabilities without changing how they design and structure their applications.
 
 We'll explore Coyote's task based programming model in this article. You should have an intuitive understanding of how it works after going through the examples and discussion below. It will not talk about how to test interesting safety and liveness properties through Coyote but will instead focus on the mechanics of how Coyote explores the concurrency of programs written using .NET TPL's framework. This will give you a solid foundation to build upon which will help you later learn how to leverage Coyote to test safety and liveness properties of your application.

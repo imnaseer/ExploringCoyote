@@ -2,6 +2,8 @@
 title:  "Augmenting Agile Prorgramming with Coyote's Concurrency Testing"
 ---
 
+# Augmenting Agile Prorgramming with Coyote's Concurrency Testing
+
 Writing correct concurrent code is notoriously hard, with developers often missing a number of problematic race conditions which trigger rarely. The move to service-based architectures means developers are writing concurrent code more often that not – they have to ensure the service functions correctly no matter how many REST API calls are executing concurrently, racing and interleaving with each other.
 
 I found out a delightfully interesting [Extreme Programming Challenge](http://wiki.c2.com/?ExtremeProgrammingChallengeFourteen) through Hillel Wayne's awesome blog post on [augmenting Agile with Formal Methods](https://www.hillelwayne.com/post/augmenting-agile/). This challenge perfectly illustrates the complexity of writing correct concurrent code.
