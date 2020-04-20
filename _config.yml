@@ -1,4 +1,4 @@
 title: Exploring Coyote
 description: Learning and exploring techniques to write reliable software through Coyote
 
-theme: jekyll-theme-minimal
+remote_theme: johno/pixyll
