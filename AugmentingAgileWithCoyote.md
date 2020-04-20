@@ -1,8 +1,8 @@
 ---
-title:  "Augmenting Agile Prorgramming with Coyote's Concurrency Testing"
+title:  "Augmenting Agile with Coyote's Concurrency Testing"
 ---
 
-# Augmenting Agile Prorgramming with Coyote's Concurrency Testing
+# Augmenting Agile with Coyote's Concurrency Testing
 
 Writing correct concurrent code is notoriously hard, with developers often missing a number of problematic race conditions which trigger rarely. The move to service-based architectures means developers are writing concurrent code more often that not – they have to ensure the service functions correctly no matter how many REST API calls are executing concurrently, racing and interleaving with each other.
 
