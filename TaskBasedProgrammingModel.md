@@ -179,9 +179,9 @@ Entering Bar 1
 `20-13-4` refers to the control flow which will resume execution from line 4 and was reached by invoking `Foo("1")` at line 20, followed by invoking `Bar("1")` at line 13 and finally hitting `Task.Run` at line 4. The second control flow will resume execution on line `21` by invoking `Foo("2")`. Coyote will explore the schedules resulting from choosing either one of those. For illustration, let's study the run where Coyote chooses to run the control flow at line `21`.  That control flow will once again run till it hits a scheduling point, or finishes execution. In our program above, it will hit the scheduling point at line 4 again, this time reached through another series of calls.
 
 ```
-Coyote chose 20-13-4
+Coyote chose 21
 
-Control flows: [20-13-4 21-13-4, 23]
+Control flows: [20-13-4, 21-13-4, 23]
 
 Output
 
